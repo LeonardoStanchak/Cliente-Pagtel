@@ -8,6 +8,6 @@ export class Produto {
   @Column({ type: "text" })
   descricacao: string;
   
-  @Column({ type: "text" })
-  preco: string;
+  @Column({ type: "integer"})
+  preco: number;
 }
