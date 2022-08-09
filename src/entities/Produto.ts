@@ -8,10 +8,10 @@ export class Produto {
 
   @Column({ type: "text" })
   descricacao: string;
-  
-  @Column({ type: "integer"})
+
+  @Column({ type: "integer" })
   preco: number;
 
-  @OneToMany(() => Pedido, pedido => pedido.produtos)
+  @OneToMany(() => Pedido, (pedido) => pedido.produtos)
   pedido: Pedido;
 }
