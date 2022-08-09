@@ -6,12 +6,15 @@ export class Produto {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ type: "text"})
+  nome_produto: string;
+
   @Column({ type: "text" })
-  descricacao: string;
+  descricao: string;
 
-  @Column({ type: "integer" })
-  preco: number;
+  @Column({ type: "text" })
+  preco: string;
 
-  @OneToMany(() => Pedido, (pedido) => pedido.produtos)
+  @OneToMany(() => Pedido, pedido => pedido.produto)
   pedido: Pedido;
 }

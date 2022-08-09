@@ -9,8 +9,8 @@ export class Entrega {
   @Column({ type: "text" })
   status: string;
 
-  @Column({ type: "text" })
-  data_entrega: string;
+  @Column({ type: "date" })
+  data_entrega: Date;
 
   @OneToOne(() => Pedido, (pedido) => pedido.entrega)
   @JoinColumn({ name: "pedido_id" })
