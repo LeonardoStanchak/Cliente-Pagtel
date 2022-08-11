@@ -38,4 +38,31 @@ export class EntregaController{
             return res.status(500).json({message: "Server error"})
         }
     }
+
+    async list(req: Request, res: Response){
+        try{
+            const entregas = await EntregaRepository.find({
+                relations: {
+                    pedido: true,
+                },
+            })
+            console.log(entregas)
+            return res.json(entregas)
+        }catch(error){
+            console.log(error)
+            return res.status(500).json({message: "Server error"})
+        }
+    
+    }
+
+    async id (req: Request, res: Response){
+        try {
+            const {id} = req.params
+            const entrega = await EntregaRepository.findOneBy({id: Number(id)})
+            return res.json(entrega)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({message: "Server error"})
+        }
+    }
 }

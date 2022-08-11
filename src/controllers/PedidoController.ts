@@ -46,4 +46,32 @@ export class PedidoController{
         }
 
      }
+
+     async list(req: Request, res: Response){
+        try {
+            const pedidos = await PedidoRepository.find({
+                relations: {
+                    cliente: true,
+                    produto: true,
+                },
+            })
+            console.log(pedidos)
+            return res.json(pedidos)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ message: 'Internal Error' })
+        }
+     }
+
+     async id (req: Request, res: Response){
+        try {
+            const {id} = req.params
+            const pedido = await PedidoRepository.findOneBy({id: Number(id)})
+            console.log(pedido)
+            return res.json(pedido)
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({ message: 'Internal Error' })
+        }
+     }
 }

@@ -1,5 +1,10 @@
+import { Cliente } from './../entities/Cliente';
 import { ClienteRepository } from './../repositories/ClienteRepository';
 import { Request, Response } from "express";
+import { request } from 'http';
+import { stringify } from 'querystring';
+import { ObjectID } from 'typeorm';
+import { Console } from 'console';
 
 export class ClienteController {
   async create(req: Request, res: Response) {
@@ -30,9 +35,10 @@ export class ClienteController {
     }
 
     try {
-        const newCliente = ClienteRepository.create({
+         var newCliente = ClienteRepository.create({
             nome,
-            cpf,data_nascimento
+            cpf,
+            data_nascimento
         })
 
         await ClienteRepository.save(newCliente);
@@ -41,9 +47,23 @@ export class ClienteController {
 
         return res.status(201).json(newCliente);
 
+
     } catch (error) {
         console.log(error)
         return res.status(500).json({message: "Server error"})
     }
   }
+
+  async id(req: Request, res: Response){
+    try {
+      const {id} = req.params
+      const cliente = await ClienteRepository.findOneBy({id: Number(id)})
+      console.log(cliente)
+      return res.json(cliente)
+    } catch (error) {
+      console.log(error)
+      return  res.status(500).json({message: "Server error"})
+    }
+  }
+
 }

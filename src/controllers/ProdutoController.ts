@@ -34,4 +34,16 @@ export class ProdutoController{
 			return res.status(500).json({ message: 'Internal Sever Error' })
         }
     }
+
+    async id (req: Request, res: Response){
+        try {
+            const {id} = req.params
+            const produto = await ProdutoRepository.findOneBy({id: Number(id)})
+            console.log(produto)
+            return res.json(produto)
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({ message: 'Internal Sever Error' })
+        }
+    }
 }
