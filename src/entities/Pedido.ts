@@ -15,18 +15,20 @@ import { Produto } from "./Produto";
 export class Pedido {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column({ type: "integer" })
-  numerio_pedido: number;
+
+  @Column({ type: "text" })
+  numero_pedido: string;
+
   @Column({ type: "text" })
   pagamento: string;
 
-  @OneToMany(() => Cliente, (cliente) => cliente.pedidos)
+  @ManyToOne(() => Cliente, (cliente) => cliente.pedido)
   @JoinColumn({ name: "cliente_id" })
   cliente: Cliente;
 
-  @ManyToOne(() => Produto, (produto) => produto.pedido)
+  @ManyToOne(() => Produto, produto => produto.pedido)
   @JoinColumn({ name: "produto_id" })
-  produtos: Produto[];
+  produto: Produto;
 
   @OneToOne(() => Entrega, (entrega) => entrega.pedido)
   entrega: Entrega;

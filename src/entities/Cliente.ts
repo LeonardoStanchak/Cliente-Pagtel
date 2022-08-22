@@ -13,6 +13,12 @@ export class Cliente {
   @Column({ type: "text" })
   nome: string;
 
+  @Column({ type: "text" })
+  cpf: string;
+
+  @Column({ type: "date" })
+  data_nascimento: Date;
+
   @ManyToOne(() => Pedido, (pedido) => pedido.cliente)
-  pedidos: Pedido[];
+  pedido: Pedido;
 }
